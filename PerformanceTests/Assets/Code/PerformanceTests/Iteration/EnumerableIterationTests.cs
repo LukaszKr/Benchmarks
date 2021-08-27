@@ -1,14 +1,14 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Unity.PerformanceTesting;
 
 namespace ProceduralLevel.PerformanceTests
 {
-	public class MultiDimArrayTests
+	public class EnumerableIterationTests
 	{
 		[Test, Performance]
-		public void Test()
+		public void Iteration()
 		{
-			Measure.Method(() => { }).Run();
+
 		}
 	}
 }
