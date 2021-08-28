@@ -8,23 +8,22 @@ namespace Benchmarks.Iterate
 		private readonly int[][][] m_JaggedArray;
 		private readonly int[] m_FlatArray;
 
-		private int m_ArraySize;
+		[Params(20)]
+		public int ArraySize;
 
 		public IterateAndModifyArray3D()
 		{
-			m_ArraySize = 20;
+			m_MultiDimArray = new int[ArraySize, ArraySize, ArraySize];
+			m_FlatArray = new int[ArraySize*ArraySize*ArraySize];
 
-			m_MultiDimArray = new int[m_ArraySize, m_ArraySize, m_ArraySize];
-			m_FlatArray = new int[m_ArraySize*m_ArraySize*m_ArraySize];
-
-			m_JaggedArray = new int[m_ArraySize][][];
-			for(int x = 0; x < m_ArraySize; ++x)
+			m_JaggedArray = new int[ArraySize][][];
+			for(int x = 0; x < ArraySize; ++x)
 			{
-				int[][] subArray = new int[m_ArraySize][];
+				int[][] subArray = new int[ArraySize][];
 				m_JaggedArray[x] = subArray;
-				for(int y = 0; y < m_ArraySize; ++y)
+				for(int y = 0; y < ArraySize; ++y)
 				{
-					subArray[y] = new int[m_ArraySize];
+					subArray[y] = new int[ArraySize];
 				}
 			}
 		}
@@ -138,29 +137,29 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void FlatArrayRandomAccess()
 		{
-			int xMod = m_ArraySize*m_ArraySize;
-			for(int x = 0; x < m_ArraySize; ++x)
+			int xMod = ArraySize*ArraySize;
+			for(int x = 0; x < ArraySize; ++x)
 			{
-				for(int y = 0; y < m_ArraySize; ++y)
+				for(int y = 0; y < ArraySize; ++y)
 				{
-					for(int z = 0; z < m_ArraySize; ++z)
+					for(int z = 0; z < ArraySize; ++z)
 					{
-						int index = x*xMod + y*m_ArraySize + z;
+						int index = x*xMod + y*ArraySize + z;
 						++m_FlatArray[index];
 					}
 				}
 			}
 		}
 
-		[Benchmark]
+		[Benchmark(Baseline = true)]
 		public void FlatArrayLinearAccess()
 		{
 			int index = 0;
-			for(int x = 0; x < m_ArraySize; ++x)
+			for(int x = 0; x < ArraySize; ++x)
 			{
-				for(int y = 0; y < m_ArraySize; ++y)
+				for(int y = 0; y < ArraySize; ++y)
 				{
-					for(int z = 0; z < m_ArraySize; ++z)
+					for(int z = 0; z < ArraySize; ++z)
 					{
 						++m_FlatArray[index++];
 					}

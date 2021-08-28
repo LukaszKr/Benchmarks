@@ -6,21 +6,21 @@ namespace Benchmarks.Iterate
 {
 	public class IterateEnumerable
 	{
-		private readonly List<int> list;
-		private readonly int[] array;
+		private readonly List<int> m_List;
+		private readonly int[] m_Array;
+
+		[Params(5000000)]
+		public int CollectionSize;
 
 		public IterateEnumerable()
 		{
-			int collectionSize = 5000000;
+			m_List = new List<int>(CollectionSize);
+			m_Array = new int[CollectionSize];
 
-
-			list = new List<int>(collectionSize);
-			array = new int[collectionSize];
-
-			for(int x = 0; x < collectionSize; ++x)
+			for(int x = 0; x < CollectionSize; ++x)
 			{
-				list.Add(1);
-				array[x] = 1;
+				m_List.Add(1);
+				m_Array[x] = 1;
 			}
 		}
 
@@ -29,7 +29,7 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			list.ForEach((element) => { sum += element; });
+			m_List.ForEach((element) => { sum += element; });
 
 			return sum;
 		}
@@ -39,7 +39,7 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			foreach(int element in list)
+			foreach(int element in m_List)
 			{
 				sum += element;
 			}
@@ -52,9 +52,9 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			for(int x = 0; x < list.Count; ++x)
+			for(int x = 0; x < m_List.Count; ++x)
 			{
-				sum += list[x];
+				sum += m_List[x];
 			}
 
 			return sum;
@@ -64,11 +64,11 @@ namespace Benchmarks.Iterate
 		public int ListCacheCount()
 		{
 			int sum = 0;
-			int count = list.Count;
+			int count = m_List.Count;
 
 			for(int x = 0; x < count; ++x)
 			{
-				sum += list[x];
+				sum += m_List[x];
 			}
 
 			return sum;
@@ -79,7 +79,7 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			foreach(int element in array)
+			foreach(int element in m_Array)
 			{
 				sum += element;
 			}
@@ -92,7 +92,7 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			Array.ForEach(array, (element) => { sum += element; });
+			Array.ForEach(m_Array, (element) => { sum += element; });
 
 			return sum;
 		}
@@ -102,9 +102,9 @@ namespace Benchmarks.Iterate
 		{
 			int sum = 0;
 
-			for(int x = 0; x < array.Length; ++x)
+			for(int x = 0; x < m_Array.Length; ++x)
 			{
-				sum += array[x];
+				sum += m_Array[x];
 			}
 
 			return sum;
@@ -114,11 +114,11 @@ namespace Benchmarks.Iterate
 		public int ArrayCacheLength()
 		{
 			int sum = 0;
-			int length = array.Length;
+			int length = m_Array.Length;
 
 			for(int x = 0; x < length; ++x)
 			{
-				sum += array[x];
+				sum += m_Array[x];
 			}
 
 			return sum;
