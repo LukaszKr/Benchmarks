@@ -1,13 +1,16 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Unity.PerformanceTesting;
 
 namespace ProceduralLevel.PerformanceTests
 {
 	public class MethodCallTest
 	{
-		private abstract class ABaseClass
+		public interface IClass
+		{
+			int InterfaceMethod();
+		}
+
+		private abstract class ABaseClass : IClass
 		{
 			protected int m_Next = 0;
 
@@ -27,6 +30,11 @@ namespace ProceduralLevel.PerformanceTests
 			}
 
 			public abstract int AbstractMethod();
+
+			public int InterfaceMethod()
+			{
+				return ++m_Next;
+			}
 		}
 
 		private class TestClass : ABaseClass
@@ -43,12 +51,13 @@ namespace ProceduralLevel.PerformanceTests
 		}
 
 		[Test, Performance]
-		public void IterateEnumerable([Values(10000000)] int iterationCount)
+		public void IterateEnumerable([Values(50000000)] int iterationCount)
 		{
-			Tester.Measure(() => MethodCall(iterationCount), nameof(MethodCall));
-			Tester.Measure(() => VirtualMethodCall(iterationCount), nameof(VirtualMethodCall));
 			Tester.Measure(() => VirtualOverridenMethodCall(iterationCount), nameof(VirtualOverridenMethodCall));
+			Tester.Measure(() => VirtualMethodCall(iterationCount), nameof(VirtualMethodCall));
+			Tester.Measure(() => InterfaceMethodCall(iterationCount), nameof(InterfaceMethodCall));
 			Tester.Measure(() => AbstractMethodCall(iterationCount), nameof(AbstractMethodCall));
+			Tester.Measure(() => MethodCall(iterationCount), nameof(MethodCall));
 		}
 
 		private void MethodCall(int iterationCount)
@@ -58,7 +67,7 @@ namespace ProceduralLevel.PerformanceTests
 
 			for(int x = 0; x < iterationCount; ++x)
 			{
-				value = test.Method();
+				value += test.Method();
 			}
 		}
 
@@ -69,7 +78,7 @@ namespace ProceduralLevel.PerformanceTests
 
 			for(int x = 0; x < iterationCount; ++x)
 			{
-				value = test.VirtualMethod();
+				value += test.VirtualMethod();
 			}
 		}
 
@@ -80,7 +89,7 @@ namespace ProceduralLevel.PerformanceTests
 
 			for(int x = 0; x < iterationCount; ++x)
 			{
-				value = test.VirtualOverridenMethod();
+				value += test.VirtualOverridenMethod();
 			}
 		}
 
@@ -91,7 +100,18 @@ namespace ProceduralLevel.PerformanceTests
 
 			for(int x = 0; x < iterationCount; ++x)
 			{
-				value = test.AbstractMethod();
+				value += test.AbstractMethod();
+			}
+		}
+
+		private void InterfaceMethodCall(int iterationCount)
+		{
+			int value = 0;
+			IClass test = new TestClass();
+
+			for(int x = 0; x < iterationCount; ++x)
+			{
+				value += test.InterfaceMethod();
 			}
 		}
 	}
