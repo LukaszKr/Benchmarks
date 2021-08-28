@@ -49,8 +49,7 @@ namespace Benchmarks.Class
 			}
 		}
 
-		[Params(500000)]
-		public int IterationCount;
+		private int iterationCount = 500000;
 
 		[Benchmark]
 		public void Method()
@@ -58,7 +57,7 @@ namespace Benchmarks.Class
 			int value = 0;
 			TestClass test = new TestClass();
 
-			for(int x = 0; x < IterationCount; ++x)
+			for(int x = 0; x < iterationCount; ++x)
 			{
 				value += test.Method();
 			}
@@ -70,7 +69,7 @@ namespace Benchmarks.Class
 			int value = 0;
 			TestClass test = new TestClass();
 
-			for(int x = 0; x < IterationCount; ++x)
+			for(int x = 0; x < iterationCount; ++x)
 			{
 				value += test.VirtualMethod();
 			}
@@ -82,7 +81,7 @@ namespace Benchmarks.Class
 			int value = 0;
 			TestClass test = new TestClass();
 
-			for(int x = 0; x < IterationCount; ++x)
+			for(int x = 0; x < iterationCount; ++x)
 			{
 				value += test.VirtualOverridenMethod();
 			}
@@ -94,7 +93,7 @@ namespace Benchmarks.Class
 			int value = 0;
 			TestClass test = new TestClass();
 
-			for(int x = 0; x < IterationCount; ++x)
+			for(int x = 0; x < iterationCount; ++x)
 			{
 				value += test.AbstractMethod();
 			}
@@ -106,7 +105,7 @@ namespace Benchmarks.Class
 			int value = 0;
 			IClass test = new TestClass();
 
-			for(int x = 0; x < IterationCount; ++x)
+			for(int x = 0; x < iterationCount; ++x)
 			{
 				value += test.InterfaceMethod();
 			}

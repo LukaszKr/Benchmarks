@@ -4,8 +4,7 @@ namespace Benchmarks.Primitive
 {
 	public class ValueIncrement
 	{
-		[Params(10000000)]
-		public int IterationCount;
+		private int m_IterationCount = 10000000;
 
 		public ValueIncrement()
 		{
@@ -17,7 +16,7 @@ namespace Benchmarks.Primitive
 		{
 			int value = 0;
 
-			for(int iteration = 0; iteration < IterationCount; iteration = iteration + 1)
+			for(int iteration = 0; iteration < m_IterationCount; iteration = iteration + 1)
 			{
 				value = value + 1;
 			}
@@ -30,7 +29,7 @@ namespace Benchmarks.Primitive
 		{
 			int value = 0;
 
-			for(int iteration = 0; iteration < IterationCount; iteration += 1)
+			for(int iteration = 0; iteration < m_IterationCount; iteration += 1)
 			{
 				value += 1;
 			}
@@ -43,7 +42,7 @@ namespace Benchmarks.Primitive
 		{
 			int value = 0;
 
-			for(int iteration = 0; iteration < IterationCount; iteration++)
+			for(int iteration = 0; iteration < m_IterationCount; iteration++)
 			{
 				value++;
 			}
@@ -56,7 +55,7 @@ namespace Benchmarks.Primitive
 		{
 			int value = 0;
 
-			for(int iteration = 0; iteration < IterationCount; ++iteration)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
 				++value;
 			}

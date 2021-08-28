@@ -8,22 +8,22 @@ namespace Benchmarks.Iterate
 		private readonly int[][][] m_JaggedArray;
 		private readonly int[] m_FlatArray;
 
-		[Params(20)]
-		public int ArraySize;
+		private int m_ArraySize = 100;
+		private int m_IterationCount = 100;
 
 		public IterateAndModifyArray3D()
 		{
-			m_MultiDimArray = new int[ArraySize, ArraySize, ArraySize];
-			m_FlatArray = new int[ArraySize*ArraySize*ArraySize];
+			m_MultiDimArray = new int[m_ArraySize, m_ArraySize, m_ArraySize];
+			m_FlatArray = new int[m_ArraySize*m_ArraySize*m_ArraySize];
 
-			m_JaggedArray = new int[ArraySize][][];
-			for(int x = 0; x < ArraySize; ++x)
+			m_JaggedArray = new int[m_ArraySize][][];
+			for(int x = 0; x < m_ArraySize; ++x)
 			{
-				int[][] subArray = new int[ArraySize][];
+				int[][] subArray = new int[m_ArraySize][];
 				m_JaggedArray[x] = subArray;
-				for(int y = 0; y < ArraySize; ++y)
+				for(int y = 0; y < m_ArraySize; ++y)
 				{
-					subArray[y] = new int[ArraySize];
+					subArray[y] = new int[m_ArraySize];
 				}
 			}
 		}
@@ -31,13 +31,16 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void MultiDimGetLength()
 		{
-			for(int x = 0; x < m_MultiDimArray.GetLength(0); ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < m_MultiDimArray.GetLength(1); ++y)
+				for(int x = 0; x < m_MultiDimArray.GetLength(0); ++x)
 				{
-					for(int z = 0; z < m_MultiDimArray.GetLength(2); ++z)
+					for(int y = 0; y < m_MultiDimArray.GetLength(1); ++y)
 					{
-						++m_MultiDimArray[x, y, z];
+						for(int z = 0; z < m_MultiDimArray.GetLength(2); ++z)
+						{
+							++m_MultiDimArray[x, y, z];
+						}
 					}
 				}
 			}
@@ -46,49 +49,60 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void MultiDimCacheLength()
 		{
-			int width = m_MultiDimArray.GetLength(0);
-			int height = m_MultiDimArray.GetLength(1);
-			int depth = m_MultiDimArray.GetLength(2);
-
-			for(int x = 0; x < width; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < height; ++y)
+				int width = m_MultiDimArray.GetLength(0);
+				int height = m_MultiDimArray.GetLength(1);
+				int depth = m_MultiDimArray.GetLength(2);
+
+				for(int x = 0; x < width; ++x)
 				{
-					for(int z = 0; z < depth; ++z)
+					for(int y = 0; y < height; ++y)
 					{
-						++m_MultiDimArray[x, y, z];
+						for(int z = 0; z < depth; ++z)
+						{
+							++m_MultiDimArray[x, y, z];
+						}
 					}
 				}
 			}
+
 		}
 
 		[Benchmark]
 		public void JaggedGetLength()
 		{
-			for(int x = 0; x < m_JaggedArray.Length; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < m_JaggedArray[x].Length; ++y)
+				for(int x = 0; x < m_JaggedArray.Length; ++x)
 				{
-					for(int z = 0; z < m_JaggedArray[x][y].Length; ++z)
+					for(int y = 0; y < m_JaggedArray[x].Length; ++y)
 					{
-						++m_JaggedArray[x][y][z];
+						for(int z = 0; z < m_JaggedArray[x][y].Length; ++z)
+						{
+							++m_JaggedArray[x][y][z];
+						}
 					}
 				}
 			}
+
 		}
 
 		[Benchmark]
 		public void JaggedGetLengthCacheRow()
 		{
-			for(int x = 0; x < m_JaggedArray.Length; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				int[][] row = m_JaggedArray[x];
-				for(int y = 0; y < row.Length; ++y)
+				for(int x = 0; x < m_JaggedArray.Length; ++x)
 				{
-					int[] line = row[y];
-					for(int z = 0; z < line.Length; ++z)
+					int[][] row = m_JaggedArray[x];
+					for(int y = 0; y < row.Length; ++y)
 					{
-						++line[z];
+						int[] line = row[y];
+						for(int z = 0; z < line.Length; ++z)
+						{
+							++line[z];
+						}
 					}
 				}
 			}
@@ -97,17 +111,20 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void JaggedCacheLength()
 		{
-			int width = m_JaggedArray.Length;
-			int heigth = m_JaggedArray[0].Length;
-			int depth = m_JaggedArray[0][0].Length;
-
-			for(int x = 0; x < width; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < heigth; ++y)
+				int width = m_JaggedArray.Length;
+				int heigth = m_JaggedArray[0].Length;
+				int depth = m_JaggedArray[0][0].Length;
+
+				for(int x = 0; x < width; ++x)
 				{
-					for(int z = 0; z < depth; ++z)
+					for(int y = 0; y < heigth; ++y)
 					{
-						++m_JaggedArray[x][y][z];
+						for(int z = 0; z < depth; ++z)
+						{
+							++m_JaggedArray[x][y][z];
+						}
 					}
 				}
 			}
@@ -116,19 +133,22 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void JaggedCacheLengthAndRow()
 		{
-			int width = m_JaggedArray.Length;
-			int height = m_JaggedArray[0].Length;
-			int depth = m_JaggedArray[0][0].Length;
-
-			for(int x = 0; x < width; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				int[][] column = m_JaggedArray[x];
-				for(int y = 0; y < height; ++y)
+				int width = m_JaggedArray.Length;
+				int height = m_JaggedArray[0].Length;
+				int depth = m_JaggedArray[0][0].Length;
+
+				for(int x = 0; x < width; ++x)
 				{
-					int[] line = column[y];
-					for(int z = 0; z < depth; ++z)
+					int[][] column = m_JaggedArray[x];
+					for(int y = 0; y < height; ++y)
 					{
-						++line[z];
+						int[] line = column[y];
+						for(int z = 0; z < depth; ++z)
+						{
+							++line[z];
+						}
 					}
 				}
 			}
@@ -137,15 +157,18 @@ namespace Benchmarks.Iterate
 		[Benchmark]
 		public void FlatArrayRandomAccess()
 		{
-			int xMod = ArraySize*ArraySize;
-			for(int x = 0; x < ArraySize; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < ArraySize; ++y)
+				int xMod = m_ArraySize*m_ArraySize;
+				for(int x = 0; x < m_ArraySize; ++x)
 				{
-					for(int z = 0; z < ArraySize; ++z)
+					for(int y = 0; y < m_ArraySize; ++y)
 					{
-						int index = x*xMod + y*ArraySize + z;
-						++m_FlatArray[index];
+						for(int z = 0; z < m_ArraySize; ++z)
+						{
+							int index = x*xMod + y*m_ArraySize + z;
+							++m_FlatArray[index];
+						}
 					}
 				}
 			}
@@ -154,14 +177,17 @@ namespace Benchmarks.Iterate
 		[Benchmark(Baseline = true)]
 		public void FlatArrayLinearAccess()
 		{
-			int index = 0;
-			for(int x = 0; x < ArraySize; ++x)
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				for(int y = 0; y < ArraySize; ++y)
+				int index = 0;
+				for(int x = 0; x < m_ArraySize; ++x)
 				{
-					for(int z = 0; z < ArraySize; ++z)
+					for(int y = 0; y < m_ArraySize; ++y)
 					{
-						++m_FlatArray[index++];
+						for(int z = 0; z < m_ArraySize; ++z)
+						{
+							++m_FlatArray[index++];
+						}
 					}
 				}
 			}

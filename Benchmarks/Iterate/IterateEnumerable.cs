@@ -9,15 +9,17 @@ namespace Benchmarks.Iterate
 		private readonly List<int> m_List;
 		private readonly int[] m_Array;
 
-		[Params(5000000)]
-		public int CollectionSize;
+		private int m_CollectionSize = 5000000;
+
 
 		public IterateEnumerable()
 		{
-			m_List = new List<int>(CollectionSize);
-			m_Array = new int[CollectionSize];
 
-			for(int x = 0; x < CollectionSize; ++x)
+
+			m_List = new List<int>(m_CollectionSize);
+			m_Array = new int[m_CollectionSize];
+
+			for(int x = 0; x < m_CollectionSize; ++x)
 			{
 				m_List.Add(1);
 				m_Array[x] = 1;
