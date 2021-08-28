@@ -45,15 +45,10 @@ namespace ProceduralLevel.PerformanceTests
 		[Test, Performance]
 		public void IterateEnumerable([Values(10000000)] int iterationCount)
 		{
-			MeasureMethod(() => MethodCall(iterationCount), nameof(MethodCall));
-			MeasureMethod(() => VirtualMethodCall(iterationCount), nameof(VirtualMethodCall));
-			MeasureMethod(() => VirtualOverridenMethodCall(iterationCount), nameof(VirtualOverridenMethodCall));
-			MeasureMethod(() => AbstractMethodCall(iterationCount), nameof(AbstractMethodCall));
-		}
-
-		private void MeasureMethod(Action method, string name)
-		{
-			Measure.Method(method).SampleGroup(name).MeasurementCount(20).Run();
+			Tester.Measure(() => MethodCall(iterationCount), nameof(MethodCall));
+			Tester.Measure(() => VirtualMethodCall(iterationCount), nameof(VirtualMethodCall));
+			Tester.Measure(() => VirtualOverridenMethodCall(iterationCount), nameof(VirtualOverridenMethodCall));
+			Tester.Measure(() => AbstractMethodCall(iterationCount), nameof(AbstractMethodCall));
 		}
 
 		private void MethodCall(int iterationCount)

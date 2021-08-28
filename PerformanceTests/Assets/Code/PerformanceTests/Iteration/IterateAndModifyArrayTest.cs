@@ -17,16 +17,11 @@ namespace ProceduralLevel.PerformanceTests
 				jaggedArray[x] = new int[arraySize];
 			}
 
-			MeasureMethod(() => MultiDimGetLength(multiDimArray, iterationCount), nameof(MultiDimGetLength));
-			MeasureMethod(() => MultiDimCacheLength(multiDimArray, iterationCount), nameof(MultiDimCacheLength));
-			MeasureMethod(() => JaggedGetLength(jaggedArray, iterationCount), nameof(JaggedGetLength));
-			MeasureMethod(() => JaggedCacheLength(jaggedArray, iterationCount), nameof(JaggedCacheLength));
-			MeasureMethod(() => JaggedCacheLengthAndRow(jaggedArray, iterationCount), nameof(JaggedCacheLengthAndRow));
-		}
-
-		private void MeasureMethod(Action method, string name)
-		{
-			Measure.Method(method).SampleGroup(name).MeasurementCount(20).Run();
+			Tester.Measure(() => MultiDimGetLength(multiDimArray, iterationCount), nameof(MultiDimGetLength));
+			Tester.Measure(() => MultiDimCacheLength(multiDimArray, iterationCount), nameof(MultiDimCacheLength));
+			Tester.Measure(() => JaggedGetLength(jaggedArray, iterationCount), nameof(JaggedGetLength));
+			Tester.Measure(() => JaggedCacheLength(jaggedArray, iterationCount), nameof(JaggedCacheLength));
+			Tester.Measure(() => JaggedCacheLengthAndRow(jaggedArray, iterationCount), nameof(JaggedCacheLengthAndRow));
 		}
 
 		private void MultiDimGetLength(int[,] array, int iterationCount)

@@ -21,19 +21,14 @@ namespace ProceduralLevel.PerformanceTests
 				array[x] = 1;
 			}
 
-			MeasureMethod(() => ListForeachMethod(list, iterationCount), nameof(ListForeachMethod));
-			MeasureMethod(() => ListForeach(list, iterationCount), nameof(ListForeach));
-			MeasureMethod(() => ListGetCount(list, iterationCount), nameof(ListGetCount));
-			MeasureMethod(() => ListCacheCount(list, iterationCount), nameof(ListCacheCount));
+			Tester.Measure(() => ListForeachMethod(list, iterationCount), nameof(ListForeachMethod));
+			Tester.Measure(() => ListForeach(list, iterationCount), nameof(ListForeach));
+			Tester.Measure(() => ListGetCount(list, iterationCount), nameof(ListGetCount));
+			Tester.Measure(() => ListCacheCount(list, iterationCount), nameof(ListCacheCount));
 
-			MeasureMethod(() => ArrayForeach(array, iterationCount), nameof(ArrayForeach));
-			MeasureMethod(() => ArrayGetLength(array, iterationCount), nameof(ArrayGetLength));
-			MeasureMethod(() => ArrayCacheLength(array, iterationCount), nameof(ArrayCacheLength));
-		}
-
-		private void MeasureMethod(Action method, string name)
-		{
-			Measure.Method(method).SampleGroup(name).MeasurementCount(20).Run();
+			Tester.Measure(() => ArrayForeach(array, iterationCount), nameof(ArrayForeach));
+			Tester.Measure(() => ArrayGetLength(array, iterationCount), nameof(ArrayGetLength));
+			Tester.Measure(() => ArrayCacheLength(array, iterationCount), nameof(ArrayCacheLength));
 		}
 
 		private void ListForeachMethod(List<int> list, int iterationCount)
