@@ -1,2 +1,2 @@
-# PerformanceTests
-Set of tests to check performance of common coding aproaches.
+# Benchmarks
+Set of benchmarks to check performance of common coding aproaches.

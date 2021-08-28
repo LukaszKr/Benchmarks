@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
-using Unity.PerformanceTesting;
+﻿using BenchmarkDotNet.Attributes;
 
-namespace ProceduralLevel.PerformanceTests
+namespace Benchmarks.Class
 {
-	public class MethodCallTest
+	public class MethodCall
 	{
-		public interface IClass
+		private interface IClass
 		{
 			int InterfaceMethod();
 		}
@@ -50,17 +49,10 @@ namespace ProceduralLevel.PerformanceTests
 			}
 		}
 
-		[Test, Performance]
-		public void IterateEnumerable([Values(50000000)] int iterationCount)
-		{
-			Tester.Measure(() => VirtualOverridenMethodCall(iterationCount), nameof(VirtualOverridenMethodCall));
-			Tester.Measure(() => VirtualMethodCall(iterationCount), nameof(VirtualMethodCall));
-			Tester.Measure(() => InterfaceMethodCall(iterationCount), nameof(InterfaceMethodCall));
-			Tester.Measure(() => AbstractMethodCall(iterationCount), nameof(AbstractMethodCall));
-			Tester.Measure(() => MethodCall(iterationCount), nameof(MethodCall));
-		}
+		private int iterationCount = 500000;
 
-		private void MethodCall(int iterationCount)
+		[Benchmark]
+		public void Method()
 		{
 			int value = 0;
 			TestClass test = new TestClass();
@@ -71,7 +63,8 @@ namespace ProceduralLevel.PerformanceTests
 			}
 		}
 
-		private void VirtualMethodCall(int iterationCount)
+		[Benchmark]
+		public void VirtualMethod()
 		{
 			int value = 0;
 			TestClass test = new TestClass();
@@ -82,7 +75,8 @@ namespace ProceduralLevel.PerformanceTests
 			}
 		}
 
-		private void VirtualOverridenMethodCall(int iterationCount)
+		[Benchmark]
+		public void VirtualOverridenMethod()
 		{
 			int value = 0;
 			TestClass test = new TestClass();
@@ -93,7 +87,8 @@ namespace ProceduralLevel.PerformanceTests
 			}
 		}
 
-		private void AbstractMethodCall(int iterationCount)
+		[Benchmark]
+		public void AbstractMethod()
 		{
 			int value = 0;
 			TestClass test = new TestClass();
@@ -104,7 +99,8 @@ namespace ProceduralLevel.PerformanceTests
 			}
 		}
 
-		private void InterfaceMethodCall(int iterationCount)
+		[Benchmark]
+		public void InterfaceMethod()
 		{
 			int value = 0;
 			IClass test = new TestClass();
