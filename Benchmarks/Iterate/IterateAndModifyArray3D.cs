@@ -162,7 +162,7 @@ namespace Benchmarks.Iterate
 				{
 					for(int z = 0; z < m_ArraySize; ++z)
 					{
-						++m_FlatArray[++index];
+						++m_FlatArray[index++];
 					}
 				}
 			}

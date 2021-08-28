@@ -128,7 +128,7 @@ namespace Benchmarks.Iterate
 			{
 				for(int y = 0; y < m_ArraySize; ++y)
 				{
-					++m_FlatArray[++index];
+					++m_FlatArray[index++];
 				}
 			}
 		}
