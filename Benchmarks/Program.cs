@@ -1,7 +1,4 @@
-﻿using BenchmarkDotNet.Reports;
-using BenchmarkDotNet.Running;
-using Benchmarks.Class;
-using Benchmarks.Primitive;
+﻿using BenchmarkDotNet.Running;
 
 namespace Benchmarks
 {
@@ -9,11 +6,7 @@ namespace Benchmarks
 	{
 		public static void Main(string[] args)
 		{
-			Summary summary;
-			//summary = BenchmarkRunner.Run<IterateAndModifyArray>();
-			//summary = BenchmarkRunner.Run<IterateEnumerable>();
-			//summary = BenchmarkRunner.Run<ValueIncrement>();
-			summary = BenchmarkRunner.Run<MethodCall>();
+			BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
 		}
 	}
 }

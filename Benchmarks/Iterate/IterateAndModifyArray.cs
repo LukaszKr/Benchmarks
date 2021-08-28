@@ -60,6 +60,19 @@ namespace Benchmarks.Iterate
 		}
 
 		[Benchmark]
+		public void JaggedGetLengthCacheRow()
+		{
+			for(int x = 0; x < m_JaggedArray.Length; ++x)
+			{
+				int[] row = m_JaggedArray[x];
+				for(int y = 0; y < row.Length; ++y)
+				{
+					++row[y];
+				}
+			}
+		}
+
+		[Benchmark]
 		public void JaggedCacheLength()
 		{
 			int width = m_JaggedArray.Length;
