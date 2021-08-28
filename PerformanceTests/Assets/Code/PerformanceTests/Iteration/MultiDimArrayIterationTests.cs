@@ -16,7 +16,8 @@ namespace ProceduralLevel.PerformanceTests
 				jagged[x] = new int[arraySize];
 			}
 
-
+			Measure.Method(() => MultiDimGetLength(multiDim, iterationCount))
+				.SampleGroup(nameof(MultiDimGetLength)).Run();
 			Measure.Method(() => MultiDimWithSize(multiDim, arraySize, iterationCount))
 				.SampleGroup(nameof(MultiDimWithSize)).Run();
 			Measure.Method(() => JaggedGetLength(jagged, iterationCount))
@@ -26,6 +27,21 @@ namespace ProceduralLevel.PerformanceTests
 			Measure.Method(() => JaggedCachedWithSize(jagged, arraySize, iterationCount))
 				.SampleGroup(nameof(JaggedCachedWithSize)).Run();
 		}
+
+		private void MultiDimGetLength(int[,] array, int iterationCount)
+		{
+			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			{
+				for(int x = 0; x < array.GetLength(0); ++x)
+				{
+					for(int y = 0; y < array.GetLength(1); ++y)
+					{
+						++array[x, y];
+					}
+				}
+			}
+		}
+
 
 		private void MultiDimWithSize(int[,] array, int size, int iterationCount)
 		{
