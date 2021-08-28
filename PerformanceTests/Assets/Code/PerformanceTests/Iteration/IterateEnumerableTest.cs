@@ -10,7 +10,7 @@ namespace ProceduralLevel.PerformanceTests
 		private const int MEASUREMENT_COUNT = 20;
 
 		[Test, Performance]
-		public void IterateEnumerable([Values(8192)] int collectionSize, [Values(5000)] int iterationCount)
+		public void IterateEnumerable([Values(25000000)] int collectionSize)
 		{
 			List<int> list = new List<int>(collectionSize);
 			int[] array = new int[collectionSize];
@@ -21,105 +21,90 @@ namespace ProceduralLevel.PerformanceTests
 				array[x] = 1;
 			}
 
-			Tester.Measure(() => ListForeachMethod(list, iterationCount), nameof(ListForeachMethod));
-			Tester.Measure(() => ListForeach(list, iterationCount), nameof(ListForeach));
-			Tester.Measure(() => ListGetCount(list, iterationCount), nameof(ListGetCount));
-			Tester.Measure(() => ListCacheCount(list, iterationCount), nameof(ListCacheCount));
+			Tester.Measure(() => ListForeachMethod(list), nameof(ListForeachMethod));
+			Tester.Measure(() => ListForeach(list), nameof(ListForeach));
+			Tester.Measure(() => ListGetCount(list), nameof(ListGetCount));
+			Tester.Measure(() => ListCacheCount(list), nameof(ListCacheCount));
 
-			Tester.Measure(() => ArrayForeach(array, iterationCount), nameof(ArrayForeach));
-			Tester.Measure(() => ArrayGetLength(array, iterationCount), nameof(ArrayGetLength));
-			Tester.Measure(() => ArrayCacheLength(array, iterationCount), nameof(ArrayCacheLength));
+			Tester.Measure(() => ArrayForeachMethod(array), nameof(ArrayForeachMethod));
+			Tester.Measure(() => ArrayForeach(array), nameof(ArrayForeach));
+			Tester.Measure(() => ArrayGetLength(array), nameof(ArrayGetLength));
+			Tester.Measure(() => ArrayCacheLength(array), nameof(ArrayCacheLength));
 		}
 
-		private void ListForeachMethod(List<int> list, int iterationCount)
+		private void ListForeachMethod(List<int> list)
 		{
 			int sum = 0;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			list.ForEach((element) => { sum += element; });
+		}
+
+		private void ListForeach(List<int> list)
+		{
+			int sum = 0;
+			
+			foreach(int element in list)
 			{
-				list.ForEach((element) => { sum += element; });
+				sum += element;
 			}
 		}
 
-		private void ListForeach(List<int> list, int iterationCount)
+		private void ListGetCount(List<int> list)
 		{
 			int sum = 0;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			for(int x = 0; x < list.Count; ++x)
 			{
-				foreach(int element in list)
-				{
-					sum += element;
-				}
+				sum += list[x];
 			}
 		}
 
-		private void ListGetCount(List<int> list, int iterationCount)
+		private void ListCacheCount(List<int> list)
 		{
 			int sum = 0;
+			int count = list.Count;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			for(int x = 0; x < count; ++x)
 			{
-				for(int x = 0; x < list.Count; ++x)
-				{
-					sum += list[x];
-				}
+				sum += list[x];
 			}
 		}
 
-		private void ListCacheCount(List<int> list, int iterationCount)
+		private void ArrayForeach(int[] array)
 		{
 			int sum = 0;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			foreach(int element in array)
 			{
-				int count = list.Count;
-
-				for(int x = 0; x < count; ++x)
-				{
-					sum += list[x];
-				}
+				sum += element;
 			}
 		}
 
-		private void ArrayForeach(int[] array, int iterationCount)
+		private void ArrayForeachMethod(int[] array)
 		{
 			int sum = 0;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			Array.ForEach(array, (element) => { sum += element; });
+		}
+
+		private void ArrayGetLength(int[] array)
+		{
+			int sum = 0;
+
+			for(int x = 0; x < array.Length; ++x)
 			{
-				foreach(int element in array)
-				{
-					sum += element;
-				}
+				sum += array[x];
 			}
 		}
 
-		private void ArrayGetLength(int[] array, int iterationCount)
+		private void ArrayCacheLength(int[] array)
 		{
 			int sum = 0;
+			int length = array.Length;
 
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
+			for(int x = 0; x < length; ++x)
 			{
-				for(int x = 0; x < array.Length; ++x)
-				{
-					sum += array[x];
-				}
-			}
-		}
-
-		private void ArrayCacheLength(int[] array, int iterationCount)
-		{
-			int sum = 0;
-
-			for(int iteration = 0; iteration < iterationCount; ++iteration)
-			{
-				int length = array.Length;
-
-				for(int x = 0; x < length; ++x)
-				{
-					sum += array[x];
-				}
+				sum += array[x];
 			}
 		}
 	}
