@@ -12,7 +12,7 @@ namespace Benchmarks.Primitive
 		}
 
 		[Benchmark]
-		public void AssignIncrement()
+		public int AssignIncrement()
 		{
 			int value = 0;
 
@@ -20,10 +20,12 @@ namespace Benchmarks.Primitive
 			{
 				value = value + 1;
 			}
+
+			return value;
 		}
 
 		[Benchmark]
-		public void ByOneIncrement()
+		public int ByOneIncrement()
 		{
 			int value = 0;
 
@@ -31,10 +33,12 @@ namespace Benchmarks.Primitive
 			{
 				value += 1;
 			}
+
+			return value;
 		}
 
 		[Benchmark]
-		public void PostIncrement()
+		public int PostIncrement()
 		{
 			int value = 0;
 
@@ -42,10 +46,12 @@ namespace Benchmarks.Primitive
 			{
 				value++;
 			}
+
+			return value;
 		}
 
 		[Benchmark]
-		public void PreIncrement()
+		public int PreIncrement()
 		{
 			int value = 0;
 
@@ -53,6 +59,8 @@ namespace Benchmarks.Primitive
 			{
 				++value;
 			}
+
+			return value;
 		}
 	}
 }

@@ -25,15 +25,17 @@ namespace Benchmarks.Iterate
 		}
 
 		[Benchmark]
-		public void ListForeachMethod()
+		public int ListForeachMethod()
 		{
 			int sum = 0;
 
 			list.ForEach((element) => { sum += element; });
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ListForeach()
+		public int ListForeach()
 		{
 			int sum = 0;
 
@@ -41,10 +43,12 @@ namespace Benchmarks.Iterate
 			{
 				sum += element;
 			}
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ListGetCount()
+		public int ListGetCount()
 		{
 			int sum = 0;
 
@@ -52,10 +56,12 @@ namespace Benchmarks.Iterate
 			{
 				sum += list[x];
 			}
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ListCacheCount()
+		public int ListCacheCount()
 		{
 			int sum = 0;
 			int count = list.Count;
@@ -64,10 +70,12 @@ namespace Benchmarks.Iterate
 			{
 				sum += list[x];
 			}
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ArrayForeach()
+		public int ArrayForeach()
 		{
 			int sum = 0;
 
@@ -75,18 +83,22 @@ namespace Benchmarks.Iterate
 			{
 				sum += element;
 			}
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ArrayForeachMethod()
+		public int ArrayForeachMethod()
 		{
 			int sum = 0;
 
 			Array.ForEach(array, (element) => { sum += element; });
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ArrayGetLength()
+		public int ArrayGetLength()
 		{
 			int sum = 0;
 
@@ -94,10 +106,12 @@ namespace Benchmarks.Iterate
 			{
 				sum += array[x];
 			}
+
+			return sum;
 		}
 
 		[Benchmark]
-		public void ArrayCacheLength()
+		public int ArrayCacheLength()
 		{
 			int sum = 0;
 			int length = array.Length;
@@ -106,6 +120,8 @@ namespace Benchmarks.Iterate
 			{
 				sum += array[x];
 			}
+
+			return sum;
 		}
 	}
 }
