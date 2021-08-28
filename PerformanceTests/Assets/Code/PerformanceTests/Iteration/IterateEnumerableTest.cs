@@ -30,6 +30,7 @@ namespace ProceduralLevel.PerformanceTests
 			MeasureMethod(() => ArrayGetLength(array, iterationCount), nameof(ArrayGetLength));
 			MeasureMethod(() => ArrayCacheLength(array, iterationCount), nameof(ArrayCacheLength));
 		}
+
 		private void MeasureMethod(Action method, string name)
 		{
 			Measure.Method(method).SampleGroup(name).MeasurementCount(20).Run();
