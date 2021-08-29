@@ -9,13 +9,10 @@ namespace Benchmarks.Iterate
 		private readonly List<int> m_List;
 		private readonly int[] m_Array;
 
-		private int m_CollectionSize = 5000000;
-
+		private int m_CollectionSize = 50000000;
 
 		public IterateEnumerable()
 		{
-
-
 			m_List = new List<int>(m_CollectionSize);
 			m_Array = new int[m_CollectionSize];
 
@@ -76,6 +73,9 @@ namespace Benchmarks.Iterate
 			return sum;
 		}
 
+		//this seems to be a winner.
+		//Foreach is returning as an element from array
+		//I suspect internally it does something better than array[index]
 		[Benchmark]
 		public int ArrayForeach()
 		{
@@ -99,7 +99,7 @@ namespace Benchmarks.Iterate
 			return sum;
 		}
 
-		[Benchmark]
+		[Benchmark(Baseline = true)]
 		public int ArrayGetLength()
 		{
 			int sum = 0;
@@ -112,6 +112,21 @@ namespace Benchmarks.Iterate
 			return sum;
 		}
 
+		[Benchmark]
+		public int ArrayGetLengthCacheElement()
+		{
+			int sum = 0;
+
+			for(int x = 0; x < m_Array.Length; ++x)
+			{
+				int element = m_Array[x];
+				sum += element;
+			}
+
+			return sum;
+		}
+
+		//caching length seems to have no effect on performance
 		[Benchmark]
 		public int ArrayCacheLength()
 		{

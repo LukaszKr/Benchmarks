@@ -195,17 +195,27 @@ namespace Benchmarks.Iterate
 			}
 		}
 
+		[Benchmark]
+		public void FlatArrayCacheLength()
+		{
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
+			{
+				int length = m_FlatArray.Length;
+				for(int x = 0; x < length; ++x)
+				{
+					++m_FlatArray[x];
+				}
+			}
+		}
+
 		[Benchmark(Baseline = true)]
 		public void FlatArray()
 		{
 			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
-				int index = 0;
-				int length = m_FlatArray.Length;
-				for(int x = 0; x < length; ++x)
+				for(int x = 0; x < m_FlatArray.Length; ++x)
 				{
-					++m_FlatArray[index];
-					++index;
+					++m_FlatArray[x];
 				}
 			}
 		}
