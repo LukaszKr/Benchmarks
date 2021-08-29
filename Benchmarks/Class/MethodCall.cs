@@ -1,7 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Class
 {
+	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
 	public class MethodCall
 	{
 		private interface IClass
@@ -51,7 +53,7 @@ namespace Benchmarks.Class
 
 		private int iterationCount = 500000;
 
-		[Benchmark]
+		[Benchmark(Baseline = true)]
 		public void Method()
 		{
 			int value = 0;

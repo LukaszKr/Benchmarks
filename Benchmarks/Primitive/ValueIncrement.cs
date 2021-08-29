@@ -1,7 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Primitive
 {
+	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
 	public class ValueIncrement
 	{
 		private int m_IterationCount = 10000000;
@@ -50,7 +52,7 @@ namespace Benchmarks.Primitive
 			return value;
 		}
 
-		[Benchmark]
+		[Benchmark(Baseline = true)]
 		public int PreIncrement()
 		{
 			int value = 0;

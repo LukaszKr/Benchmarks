@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Iterate
 {
+	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
 	public class IterateEnumerable
 	{
 		private readonly List<int> m_List;

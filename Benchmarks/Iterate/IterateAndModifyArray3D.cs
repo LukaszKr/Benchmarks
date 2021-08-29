@@ -1,7 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Iterate
 {
+	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
 	public class IterateAndModifyArray3D
 	{
 		private readonly int[,,] m_MultiDimArray;
