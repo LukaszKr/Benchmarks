@@ -113,6 +113,7 @@ namespace Benchmarks.Iterate
 		{
 			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
 			{
+				//caching length can actually break some compiler optimization and perform a tiny bit worse than just accessing length in for loop
 				int width = m_JaggedArray.Length;
 				int heigth = m_JaggedArray[0].Length;
 				int depth = m_JaggedArray[0][0].Length;
@@ -174,7 +175,7 @@ namespace Benchmarks.Iterate
 			}
 		}
 
-		[Benchmark(Baseline = true)]
+		[Benchmark]
 		public void FlatArrayLinearAccess()
 		{
 			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
@@ -186,9 +187,25 @@ namespace Benchmarks.Iterate
 					{
 						for(int z = 0; z < m_ArraySize; ++z)
 						{
-							++m_FlatArray[index++];
+							++m_FlatArray[index];
+							++index;
 						}
 					}
+				}
+			}
+		}
+
+		[Benchmark(Baseline = true)]
+		public void FlatArray()
+		{
+			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
+			{
+				int index = 0;
+				int length = m_FlatArray.Length;
+				for(int x = 0; x < length; ++x)
+				{
+					++m_FlatArray[index];
+					++index;
 				}
 			}
 		}
