@@ -26,3 +26,4 @@ bld/
 #wwwroot/
 
 .csproj.user
+.leu
