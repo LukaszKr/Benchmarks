@@ -3,7 +3,7 @@ using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Iterate
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class IterateAndModifyArray3D
 	{
 		private readonly int[,,] m_MultiDimArray;

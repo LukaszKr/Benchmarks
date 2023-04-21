@@ -3,7 +3,7 @@ using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Primitive
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class ValueIncrement
 	{
 		private const int ITERATIONS = 100000000;

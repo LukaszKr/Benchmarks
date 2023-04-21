@@ -4,7 +4,7 @@ using System;
 
 namespace Benchmarks.StringArg
 {
-    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
+    [Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
     public class StringArg
     {
         private const int ITERATIONS = 1000;

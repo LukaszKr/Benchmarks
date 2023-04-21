@@ -5,7 +5,7 @@ using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Iterate
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class IterateEnumerable
 	{
 		private readonly List<int> m_List;

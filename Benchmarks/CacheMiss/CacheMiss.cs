@@ -1,11 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Order;
 using System;
 using System.Collections.Generic;
 
 namespace Benchmarks.CacheMiss
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class CacheMiss
 	{
 		private struct StructHandler

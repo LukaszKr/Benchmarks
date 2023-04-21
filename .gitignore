@@ -27,3 +27,4 @@ bld/
 
 .csproj.user
 .leu
+Benchmarks/Benchmarks.csproj.user

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Benchmarks.Class
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class MethodCall
 	{
 		private interface IClass

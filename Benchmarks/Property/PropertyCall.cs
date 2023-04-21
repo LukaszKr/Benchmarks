@@ -3,7 +3,7 @@ using BenchmarkDotNet.Order;
 
 namespace Benchmarks.Property
 {
-	[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class PropertyCall
 	{
 		private const int ITERATIONS = 10000000;
