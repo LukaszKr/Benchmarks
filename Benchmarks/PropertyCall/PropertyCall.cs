@@ -25,7 +25,7 @@ namespace Benchmarks.Property
 
 		}
 
-		[Benchmark]
+		[Benchmark(Baseline = true)]
 		public void FieldIncrement()
 		{
 			ExampleClass example = new ExampleClass();
