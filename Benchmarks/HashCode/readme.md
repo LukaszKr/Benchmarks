@@ -8,7 +8,8 @@ BenchmarkDotNet=v0.13.5, OS=Windows 10 (10.0.19045.3693/22H2/2022Update)
 
 
 ```
-|         Method |       Mean |   Error |  StdDev | Ratio | RatioSD |
-|--------------- |-----------:|--------:|--------:|------:|--------:|
-|   BitShiftHash |   393.6 μs | 3.79 μs | 3.54 μs |  1.00 |    0.00 |
-| ValueTupleHash | 1,562.8 μs | 3.39 μs | 3.00 μs |  3.97 |    0.04 |
+|         Method |        Mean |    Error |   StdDev | Ratio |
+|--------------- |------------:|---------:|---------:|------:|
+|   BitShiftHash |    390.6 μs |  0.30 μs |  0.25 μs |  0.03 |
+| ValueTupleHash |  1,607.9 μs |  2.21 μs |  1.96 μs |  0.14 |
+|    DefaultHash | 11,797.0 μs | 41.63 μs | 36.90 μs |  1.00 |

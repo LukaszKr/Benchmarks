@@ -6,6 +6,18 @@ namespace Benchmarks.HashCode
 	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
 	public class HashCode
 	{
+		private readonly struct DefaultHashStruct
+		{
+			public readonly int X;
+			public readonly int Y;
+
+			public DefaultHashStruct(int x, int y)
+			{
+				X = x;
+				Y = y;
+			}
+		}
+
 		private readonly struct BitShiftHashStruct
 		{
 			public readonly int X;
@@ -43,6 +55,18 @@ namespace Benchmarks.HashCode
 		private const int REPEAT = 1000000;
 
 		[Benchmark(Baseline = true)]
+		public void DefaultHash()
+		{
+			long sum = 0;
+			for(int x = 0; x < REPEAT; ++x)
+			{
+				DefaultHashStruct s = new DefaultHashStruct(x, x);
+				int hash = s.GetHashCode();
+				sum += hash;
+			}
+		}
+
+		[Benchmark()]
 		public void BitShiftHash()
 		{
 			long sum = 0;
