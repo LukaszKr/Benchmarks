@@ -4,7 +4,7 @@ using BenchmarkDotNet.Order;
 namespace Benchmarks.Iterate
 {
 	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
-	public class IterateAndModifyArray3D
+	public class IterateArray3D
 	{
 		private readonly int[,,] m_MultiDimArray;
 		private readonly int[][][] m_JaggedArray;
@@ -13,7 +13,7 @@ namespace Benchmarks.Iterate
 		private int m_ArraySize = 100;
 		private int m_IterationCount = 100;
 
-		public IterateAndModifyArray3D()
+		public IterateArray3D()
 		{
 			m_MultiDimArray = new int[m_ArraySize, m_ArraySize, m_ArraySize];
 			m_FlatArray = new int[m_ArraySize*m_ArraySize*m_ArraySize];

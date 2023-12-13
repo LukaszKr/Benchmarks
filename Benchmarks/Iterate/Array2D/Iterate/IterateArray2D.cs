@@ -4,7 +4,7 @@ using BenchmarkDotNet.Order;
 namespace Benchmarks.Iterate
 {
 	[Orderer(SummaryOrderPolicy.FastestToSlowest), MarkdownExporterAttribute.GitHub]
-	public class IterateAndModifyArray2D
+	public class IterateArray2D
 	{
 		private readonly int[,] m_MultiDimArray;
 		private readonly int[][] m_JaggedArray;
@@ -13,7 +13,7 @@ namespace Benchmarks.Iterate
 		private int m_ArraySize = 2000;
 		private int m_IterationCount = 100;
 
-		public IterateAndModifyArray2D()
+		public IterateArray2D()
 		{
 			m_MultiDimArray = new int[m_ArraySize, m_ArraySize];
 			m_FlatArray = new int[m_ArraySize*m_ArraySize];
@@ -25,6 +25,7 @@ namespace Benchmarks.Iterate
 			}
 		}
 
+		#region MultiDim
 		[Benchmark]
 		public void MultiDimGetLength()
 		{
@@ -57,7 +58,9 @@ namespace Benchmarks.Iterate
 				}
 			}
 		}
+		#endregion
 
+		#region Jagged
 		[Benchmark]
 		public void JaggedGetLength()
 		{
@@ -127,23 +130,9 @@ namespace Benchmarks.Iterate
 				}
 			}
 		}
+		#endregion
 
-		[Benchmark]
-		public void FlatArrayRandomAccess()
-		{
-			for(int iteration = 0; iteration < m_IterationCount; ++iteration)
-			{
-				for(int x = 0; x < m_ArraySize; ++x)
-				{
-					for(int y = 0; y < m_ArraySize; ++y)
-					{
-						int index = x * m_ArraySize + y;
-						++m_FlatArray[index];
-					}
-				}
-			}
-		}
-
+		#region Flat Array
 		[Benchmark]
 		public void FlatArrayLinearAccess()
 		{
@@ -185,5 +174,6 @@ namespace Benchmarks.Iterate
 				}
 			}
 		}
+		#endregion
 	}
 }
